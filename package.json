@@ -1,0 +1,11 @@
+{
+  "name": "node-tweeter",
+  "version": "1.0.0",
+  "description": "tweets if ride is matched",
+  "main": "app.js",
+  "author": "flakyfilibuster",
+  "dependencies": {
+    "express": "^4.13.1",
+    "play": "^0.5.0"
+  }
+}
