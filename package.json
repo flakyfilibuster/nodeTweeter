@@ -6,6 +6,6 @@
   "author": "flakyfilibuster",
   "dependencies": {
     "express": "^4.13.1",
-    "play": "^0.5.0"
+    "play-sound": "0.0.5"
   }
 }
