@@ -3,10 +3,9 @@ var https = require('https');
 var cfg = require('./cfg.json');
 var intervalTime = 10000;
 
+var date = Date.now();
 
 setInterval(function() {
-
-  var date = Date.now();
 
   var options = {
     hostname: cfg.hostName,
@@ -14,16 +13,23 @@ setInterval(function() {
     method: 'GET'
   };
 
-  https.get(options, function(res) {
-    console.log("Date: ", date);
-    console.log("Got response: " + res.statusCode);
+  var req = https.get(options, function(res) {
+
+    // reset date with headers.date
+    date = Date.parse(res.headers.date);
     res.on('data', function (chunk) {
-      console.log('BODY: ' + chunk);
-      if(chunk.negotiations) {
+      var jsonRsp = JSON.parse(chunk);
+
+      console.log('Negotiation?', jsonRsp.negotiations);
+
+      if(jsonRsp.negotiations) {
         player.play('sounds/submarine.m4a');
       }
     });
   }).on('error', function(e) {
     console.log("Got error: " + e.message);
   });
+
+  req.end();
+
 }, intervalTime);
