@@ -20,7 +20,7 @@ setInterval(function() {
     res.on('data', function (chunk) {
       var jsonRsp = JSON.parse(chunk);
 
-      console.log('Negotiation?', jsonRsp.negotiations);
+      console.log('Negotiation: %s ==> %s', new Date(date), jsonRsp.negotiations);
 
       if(jsonRsp.negotiations) {
         player.play('sounds/submarine.m4a');
