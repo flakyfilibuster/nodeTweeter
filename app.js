@@ -2,6 +2,7 @@ var player = require('play-sound')(opts = {});
 var https = require('https');
 var cfg = require('./cfg.json');
 var intervalTime = 5000;
+var stats = [0];
 
 function utcDateString(d){
   function pad(n){return (n<10 ? '0'+n : n); }
@@ -14,6 +15,8 @@ function utcDateString(d){
 }
 
 var date = new Date();
+
+stats.unshift(date);
 
 setInterval(function() {
 
@@ -34,9 +37,11 @@ setInterval(function() {
     res.on('data', function (chunk) {
       var jsonRsp = JSON.parse(chunk);
 
+      console.log('Negotiations since: ', stats[0], ' ', stats[1]);
       console.log('Negotiation: %s ==> %s', date, jsonRsp.negotiations);
 
       if(jsonRsp.negotiations) {
+        stats[1] += 1;
         player.play('sounds/submarine.m4a');
       }
     });
