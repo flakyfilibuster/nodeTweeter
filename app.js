@@ -19,9 +19,9 @@ function utcDateString(d){
     + pad(d.getUTCSeconds())+'Z';
 }
 
-function rndBudQuote() {
-  var thisQuoteArr = fs.readdirSync('sounds/budQuotes');
-  return ('sounds/budQuotes/' + thisQuoteArr[Math.floor(thisQuoteArr.length * Math.random())]);
+function rndSound(folder) {
+  var thisQuoteArr = fs.readdirSync(folder);
+  return (folder + '/' + thisQuoteArr[Math.floor(thisQuoteArr.length * Math.random())]);
 }
 
 var date = new Date();
@@ -53,7 +53,7 @@ setInterval(function() {
 
       if(jsonRsp.negotiations) {
         stats.push(date);
-        player.play(rndBudQuote());
+        player.play(rndSound('sounds/gameSounds'));
       }
     });
   }).on('error', function(e) {
