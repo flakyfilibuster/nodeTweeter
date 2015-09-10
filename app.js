@@ -21,9 +21,9 @@ function utcDateString(d){
 var date = new Date();
 var startDate = date;
 
-
 setInterval(function() {
   console.log('Negotiations since: ', startDate, ' ', stats.length);
+  console.log('Last Negotiation: ', stats[stats.length -1] ? stats[stats.length -1] : 'none, sorry boss');
 }, 30000);
 
 setInterval(function() {
@@ -37,8 +37,6 @@ setInterval(function() {
   };
 
   var req = https.get(options, function(res) {
-    console.log('pre date', date);
-
     // reset date with headers.date
     date = new Date(Date.parse(res.headers.date));
 
