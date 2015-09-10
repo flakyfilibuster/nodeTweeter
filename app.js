@@ -1,3 +1,4 @@
+var fs = require('fs')
 var player = require('play-sound')(opts = {});
 var https = require('https');
 var cfg = require('./cfg.json');
@@ -16,6 +17,11 @@ function utcDateString(d){
     + pad(d.getUTCHours())+':'
     + pad(d.getUTCMinutes())+':'
     + pad(d.getUTCSeconds())+'Z';
+}
+
+function rndBudQuote() {
+  var thisQuoteArr = fs.readdirSync('sounds/budQuotes');
+  return ('sounds/budQuotes/' + thisQuoteArr[Math.floor(thisQuoteArr.length * Math.random())]);
 }
 
 var date = new Date();
@@ -46,8 +52,8 @@ setInterval(function() {
       console.log('Negotiation: %s ==> %s', date, jsonRsp.negotiations);
 
       if(jsonRsp.negotiations) {
-	stats.push(date);
-        player.play('sounds/05.wav');
+        stats.push(date);
+        player.play(rndBudQuote());
       }
     });
   }).on('error', function(e) {
